@@ -1,3 +1,4 @@
+
 import SignUpComponent from '@/components/signUpComponent/SignUpComponent'
 import React from 'react'
 
