@@ -2,13 +2,11 @@ import Task from "../models/task.js";
 import User from '../models/user.js';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import sequelize from "../utils/sequelize.js";
-import { Op } from 'sequelize'
+
 const JWT_SECRET = process.env.JWT_SECRET || 'defaultsecret';
 
 const signUp = async (req, res) => {
     const { email, username, password } = req.body;
-    console.log("signedup", req.body);
     try {
       // Hash the password before saving it
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -34,7 +32,7 @@ const signUp = async (req, res) => {
   };
 
 const login = async (req, res) => {
-  console.log("login",req.body);
+ 
     const { email, password } = req.body;
     try {
       const user = await User.findOne({
@@ -55,7 +53,7 @@ const login = async (req, res) => {
 }; 
 
 const getAllTasks = async (req, res) => {
-  console.log("ed ", req.params.userId);
+
   const userId = req.params.userId; // Access userId from req.params.userId
 
   try {
@@ -77,8 +75,7 @@ const getAllTasks = async (req, res) => {
   
 
   const createTask = async (req, res) => { 
-    const { description, isCompleted,userId } = req.body;
-    console.log(userId);
+    const { description, isCompleted,userId } = req.body;;
     try {
       // Create a new task associated with the specific user
       const newTask = await Task.create({ description, isCompleted, userId });
@@ -90,7 +87,6 @@ const getAllTasks = async (req, res) => {
   };
   
 const updateTask = async (req, res) => {
-  console.log("updatte",req.body);
   const taskId = req.params.id;
   const { description, isCompleted } = req.body;
   try {
@@ -106,7 +102,6 @@ const updateTask = async (req, res) => {
 };
 
 const deleteTask = async (req, res) => {
-  console.log("delete");
   const taskId = req.params.id;
   try {
     await Task.destroy({ where: { id: taskId } });
