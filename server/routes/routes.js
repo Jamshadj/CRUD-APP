@@ -7,10 +7,10 @@ const router = express.Router();
 // Authentication Routes
 router.post("/signup", signUp);
 router.post("/login", login);
-
+ 
 // Task Routes
 
-router.get("/tasks/:userId",authenticateJWT, getAllTasks);
+router.get("/tasks/:userId", authenticateJWT, getAllTasks);
 router.post("/tasks",authenticateJWT, createTask);
 router.put("/tasks/:id",authenticateJWT, updateTask);
 router.delete("/tasks/:id",authenticateJWT, deleteTask);

@@ -34,27 +34,29 @@ const signUp = async (req, res) => {
   };
 
 const login = async (req, res) => {
+  console.log("login",req.body);
     const { email, password } = req.body;
     try {
       const user = await User.findOne({
         where: { email: email },
       });
+      console.log("de",user);
   
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign({ userId: user.id }, JWT_SECRET ); 
-        res.status(200).json({ message: "Login successful", token });
+        res.status(200).json({ message: "Login successful", token,user });
       } else {
         res.status(401).json({ message: "Invalid credentials" });
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       res.status(500).json({ message: "Internal Server Error" });
     }
-};
+}; 
 
 const getAllTasks = async (req, res) => {
-  console.log("ed ");
-  const userId = req.params.id; // Assuming the authenticated user's ID is stored in the req.user object
+  console.log("ed ", req.params.userId);
+  const userId = req.params.userId; // Access userId from req.params.userId
 
   try {
     // Find tasks associated with the specific user ID
@@ -63,7 +65,6 @@ const getAllTasks = async (req, res) => {
         userId: userId,
       },
     });
-   console.log(tasks);
     // Send the tasks as a response
     res.status(200).json(tasks);
   } catch (error) {
@@ -72,9 +73,10 @@ const getAllTasks = async (req, res) => {
   }
 };
 
+ 
   
 
-  const createTask = async (req, res) => {
+  const createTask = async (req, res) => { 
     const { description, isCompleted,userId } = req.body;
     console.log(userId);
     try {
@@ -88,7 +90,7 @@ const getAllTasks = async (req, res) => {
   };
   
 const updateTask = async (req, res) => {
-  console.log("updatte");
+  console.log("updatte",req.body);
   const taskId = req.params.id;
   const { description, isCompleted } = req.body;
   try {
@@ -98,16 +100,17 @@ const updateTask = async (req, res) => {
     );
     res.status(200).json({updatedTask,message:"sucessfully updated"});
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
 const deleteTask = async (req, res) => {
+  console.log("delete");
   const taskId = req.params.id;
   try {
     await Task.destroy({ where: { id: taskId } });
-    res.status(204).send();
+    res.status(200).send();
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

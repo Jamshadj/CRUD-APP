@@ -3,7 +3,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'defaultsecret';
 
 const authenticateJWT = (req, res, next) => {
   const token = req.header("Authorization");
-  console.log(token,"hele");
+  console.log(token,"log");
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
