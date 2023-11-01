@@ -35,7 +35,8 @@ function SignupComponent() {
       navigate('/user/tasks')
       console.log('Signup successful!');
     } catch (error) {
-      setError(error.message || 'An error occurred during signup.');
+      console.log(error);
+      setError(rror.response.data.message  || 'An error occurred during signup.');
     } finally {
       setLoading(false);
     }
@@ -103,6 +104,11 @@ function SignupComponent() {
             value={formData.password}
             onChange={handleInputChange}
           />
+           {error && (
+          <Typography variant="body2" color="error" align="center">
+            {error}
+          </Typography>
+        )}
           <Button
             type="submit"
             fullWidth

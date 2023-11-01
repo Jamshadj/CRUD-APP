@@ -1,11 +1,10 @@
-import BasicTable from '../../componet/DataTable/DataTable';
-import Home from '../../componet/Home/Home';
 
+import TaskManager from '../../componet/TaskComponent/TaskComponent'
 import React from 'react'
 
 function HomePage() {
   return (
-    <div><Home/><BasicTable/></div>
+    <div><TaskManager/></div>
   )
 }
 

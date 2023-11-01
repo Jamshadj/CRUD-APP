@@ -10,7 +10,8 @@ import Button from '@mui/material/Button';
 import { deleteData, editdata, getdata } from '../../services/api';
 import Swal from 'sweetalert2';
 
-export default function BasicTable() {
+export default function BasicTable({ tasks }) {
+
   const [rows, setRows] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const userId = localStorage.getItem('userId');
@@ -39,7 +40,7 @@ export default function BasicTable() {
     if (userId) {
       fetchData();
     }
-  }, [userId]);
+  }, [userId,tasks]);
 
 
  const handleEdit = (id, currentDescription) => {

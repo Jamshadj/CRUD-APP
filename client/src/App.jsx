@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 import HomePage from './pages/HomePage/HomePage';
 import SignupPage from './pages/SignUpPage/SignupPage';
-import LoginComponent from './component/LoginComponent/LoginComponent';
+import LoginComponent from './componet/LoginComponent/LoginComponent';
 
 function App() {
-  const token = localStorage.getItem('token');
+const token = localStorage.getItem('token');
 
   return (
     <Router>

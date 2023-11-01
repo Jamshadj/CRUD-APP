@@ -2,8 +2,7 @@ import axiosInstance from '../../services/axiosInstance';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-function Home() {
-  const [taskDescription, setTaskDescription] = useState('');
+function Home({ onAddTask }) {
 
   const handleAddTask = async () => {
     const { value: description } = await Swal.fire({
@@ -19,12 +18,14 @@ function Home() {
     });
     const userId = localStorage.getItem('userId');
     if (description) {
-      // Send the task description to the backend
-      axiosInstance().post('/user/tasks', { description,userId })
+      axiosInstance().post('/user/tasks', { description, userId })
         .then((response) => {
           Swal.fire('Success!', 'Task added successfully!', 'success');
+          // Call the callback function to update tasks state in the parent component
+          onAddTask(response.data); // Assuming the response contains the new task data
         })
         .catch((error) => {
+          console.log(error);
           Swal.fire('Error!', 'Failed to add task.', 'error');
         });
     }
