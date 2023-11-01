@@ -1,23 +1,23 @@
-import  express from "express";
-import cors from "cors"
+import express from "express";
+import cors from "cors";
 import router from "./routes/routes.js";
 
-const app=express()
+const app = express();
 
-var corsOptions={
-    origin:"http://localhost:3000/"
-}
+var corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true 
+};
 
-//middleware
-app.use(cors(corsOptions))
+// Middleware
+app.use(cors(corsOptions));
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/user', router);
 
-app.use(express.urlencoded({extended:true}))
+const port = 4000;
 
-app.use('/user',router)
-const port= 4000;
-
-app.listen(port,()=>{
-    console.log(`Your server is runging on port ${port}`);
-})    
+app.listen(port, () => {
+  console.log(`Your server is running on port ${port}`);
+});
